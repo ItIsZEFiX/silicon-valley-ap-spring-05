@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.ComboBox?>
+
+<!-- The Root Node linking to Java Controller -->
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.techcartel.siliconvalley.view.MainController"
+            style="-fx-background-color: #1e1e24; -fx-font-family: 'Segoe UI';">
+
+    <!-- LEFT REGION: Player Stats -->
+    <left>
+        <VBox fx:id="playerStatsArea" prefWidth="250" spacing="15" style="-fx-border-color: #555; -fx-border-width: 0 1 0 0; -fx-padding: 15;">
+
+            <!-- A nice title for the sidebar -->
+            <Label text="Player Stats" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <!-- This empty VBox will hold our generated player cards.
+                 Spacing="10" adds a 10px gap between each player's card. -->
+            <VBox fx:id="playersListContainer" spacing="10" />
+
+        </VBox>
+    </left>
+
+    <!-- CENTER REGION: Game Map -->
+    <center>
+        <StackPane alignment="CENTER" style="-fx-background-color: #2b2b36; -fx-padding: 20;">
+
+            <!-- The Group locks the Grid and Overlay together so they cannot separate -->
+            <Group>
+                <!-- Layer 1: The Base Grid (Sectors) -->
+                <GridPane fx:id="mapGrid" alignment="CENTER" hgap="5" vgap="5" />
+
+                <!-- Layer 2: The Transparent Overlay (Vertices & Edges) -->
+                <Pane fx:id="interactionOverlay" mouseTransparent="false" />
+            </Group>
+
+        </StackPane>
+    </center>
+
+    <!-- RIGHT SIDEBAR: Market & Logs -->
+    <right>
+        <VBox spacing="15" style="-fx-background-color: #2b2b36; -fx-padding: 15; -fx-pref-width: 250;">
+
+            <Label text="LIVE MARKET" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" />
+            <VBox fx:id="marketListContainer" spacing="5" />
+
+            <!-- Trading Controls -->
+            <VBox spacing="10" style="-fx-background-color: #3a3a4a; -fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #555; -fx-border-radius: 5;">
+                <Label text="Market Actions" style="-fx-text-fill: #00FFCC; -fx-font-weight: bold;" />
+                <ComboBox fx:id="resourceDropdown" promptText="Select Resource" maxWidth="Infinity" />
+                <HBox spacing="10">
+                    <Button text="Buy" onAction="#handleBuyResource" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-base: #4CAF50; -fx-font-weight: bold;" />
+                    <Button text="Sell" onAction="#handleSellResource" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-base: #f44336; -fx-font-weight: bold;" />
+                </HBox>
+
+                <!-- The Player Trade Button -->
+                <Button text="Trade with Player..." onAction="#handlePlayerTrade" maxWidth="Infinity" style="-fx-base: #607D8B; -fx-text-fill: white; -fx-font-weight: bold;" />
+            </VBox>
+
+            <Label text="EVENT LOG" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;" />
+            <ListView fx:id="eventLogView" VBox.vgrow="ALWAYS" style="-fx-background-color: #1e1e24;" />
+
+        </VBox>
+    </right>
+
+    <!-- BOTTOM REGION: Action Controls -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #1e1e24; -fx-padding: 20; -fx-border-color: #555; -fx-border-width: 1 0 0 0;">
+
+            <!-- Primary Action Buttons -->
+            <Button text="Roll Dice" onAction="#handleRollDice" style="-fx-font-weight: bold; -fx-padding: 10 20; -fx-base: #4CAF50;" />
+            <Button text="End Turn" onAction="#handleEndTurn" style="-fx-font-weight: bold; -fx-padding: 10 20; -fx-base: #f44336;" />
+
+            <!-- Time Travel Buttons -->
+            <Button text="Undo" onAction="#handleUndo" style="-fx-padding: 10 20; -fx-base: #FFC107; -fx-text-fill: black; -fx-font-weight: bold;" />
+            <Button text="Redo" onAction="#handleRedo" style="-fx-padding: 10 20; -fx-base: #FFC107; -fx-text-fill: black; -fx-font-weight: bold;" />
+
+            <!-- A spacer to push the save/load buttons to the far right -->
+            <Pane HBox.hgrow="ALWAYS" />
+
+            <!-- System Buttons -->
+            <Button text="Save Game" onAction="#handleSaveGame" style="-fx-padding: 10 20; -fx-base: #555566;" />
+            <Button text="Load Game" onAction="#handleLoadGame" style="-fx-padding: 10 20; -fx-base: #555566;" />
+
+        </HBox>
+    </bottom>
+
+</BorderPane>
